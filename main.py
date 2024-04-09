@@ -64,35 +64,39 @@ def calculate_trigonometry(do: str) -> str:
     try:
         parts = do.split()
         result = ""
-        if 'cos' in do:
-            if -1 <= float(parts[1]) <= 1:
-                result = math.cos(float(parts[1]))
-            else:
-                return 'В функцию передано неверное значение'
-            return f"{do} = {result}"
-        elif 'sin' in do:
-            if -1 <= float(parts[1]) <= 1:
-                result = math.sin(float(parts[1]))
-            else:
-                return 'В функцию передано неверное значение'
-            return f"{do} = {result}"
-        elif 'tg' in do:
-            result = math.tan(float(parts[1]))
-            return f"{do} = {result}"
-        elif 'ctg' in do:
-            result = (math.cos(float(parts[1]) / math.sin(float(parts[1]))))
+        if "deg" in do:
+            value = float(parts[1])/360 * math.pi * 2
+        else:
+            value = parts[1]
+        if 'ctg' in do:
+            result = math.cos(float(value) / math.sin(float(value)))
             return f"{do} = {result}"
         elif 'acos' in do:
-            if -1 <= float(parts[1]) <= 1:
-                result = math.acos(float(parts[1]))
+            if -10000 <= float(value) <= 100000:
+                result = math.acos(float(value))
             else:
                 return 'В функцию передано неверное значение'
             return f"{do} = {result}"
         elif 'asin' in do:
-            if -1 <= float(parts[1]) <= 1:
-                result = math.asin(float(parts[1]))
+            if -10000 <= float(value) <= 100000:
+                result = math.asin(float(value))
             else:
                 return 'В функцию передано неверное значение'
+            return f"{do} = {result}"
+        elif 'cos' in do:
+            if -10000 <= float(value) <= 10000:
+                result = math.cos(float(value))
+            else:
+                return 'В функцию передано неверное значение'
+            return f"{do} = {result}"
+        elif 'sin' in do:
+            if -10000 <= float(value) <= 10000:
+                result = math.sin(float(value))
+            else:
+                return 'В функцию передано неверное значение'
+            return f"{do} = {result}"
+        elif 'tg' in do:
+            result = math.tan(float(value))
             return f"{do} = {result}"
         return f"Я не знаю такого действия"
     except Exception as ex:
